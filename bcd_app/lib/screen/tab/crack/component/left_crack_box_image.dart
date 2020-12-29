@@ -5,20 +5,25 @@ class LeftCrackBoxImage extends StatelessWidget {
   LeftCrackBoxImage();
   @override
   Widget build(BuildContext context) {
-    return   Container(
-      width: 100,
-      child: Container(
-        height: 70,
-        width: 70,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: const Color(0xff7e7e7e), width: 0.2),
-          image: DecorationImage(
-              image: NetworkImage(
-                  'https://www.designingbuildings.co.uk/w/images/6/6c/Cracking.jpg'),
-              fit: BoxFit.cover),
-        ),
-      ),
+    return         Container(height: double.infinity,
+        child:Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 130,
+              child: Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://www.designingbuildings.co.uk/w/images/6/6c/Cracking.jpg'),
+                      fit: BoxFit.cover),
+                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10),topLeft:Radius.circular(10)),
+                ),
+              ),
+            ),
+          ],)
     );
   }
 }

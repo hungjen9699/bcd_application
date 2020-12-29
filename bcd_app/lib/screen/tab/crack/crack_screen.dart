@@ -4,7 +4,9 @@ import 'package:bcd_app/screen/tab/crack/calendardemo.dart';
 import 'package:bcd_app/screen/tab/crack/crack_screen.dart';
 import 'package:bcd_app/screen/tab/home/home_screen.dart';
 import 'package:bcd_app/screen/tab/notification/notification_screen.dart';
-import 'package:bcd_app/screen/tab/schedule/schedule__screen.dart';
+
+import 'package:bcd_app/screen/tab/crack/component/date_tile.dart';
+
 import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +25,42 @@ class CrackScreen extends StatefulWidget {
   }
 }
 class CrackScreenState extends State<CrackScreen> {
-
-  int _currentIndex = 0;
+  String todayDateIs = "12";
+  int _currentIndex = 1;
   PageController _pageController;
+  @override
+
+  final tabs =[
+    SingleChildScrollView(child:
+
+    Container(
+      child: Column(
+        children: [
+            ListDates(),
+          // CrackNotVerifyBox("xx"),
+          // CrackNotVerifyBox("xx"),
+          // CrackNotVerifyBox("xx"),
+        ],
+      ),
+    ),),
+    SingleChildScrollView(child:Container(
+      child: Column(
+        children: [
+          CrackVerifyBox(Colors.yellow, "Scheduled"),
+          CrackVerifyBox(Colors.redAccent, "Scheduled"),
+          CrackVerifyBox(Colors.orangeAccent, "UnScheduled"),
+
+        ],
+      ),
+    ),),
+  ];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
-  }
 
+  }
   @override
   void dispose() {
     _pageController.dispose();
@@ -54,53 +82,42 @@ class CrackScreenState extends State<CrackScreen> {
           },
 
           children: <Widget>[
-            SingleChildScrollView(child:Container(
-              child: Column(
-                children: [
-                  CrackNotVerifyBox("xx"),
-                  CrackNotVerifyBox("xx"),
-                  CrackNotVerifyBox("xx"),
-
-
-                ],
-              ),
-            ),),
-            SingleChildScrollView(child:Container(
-              child: Column(
-                children: [
-                  CrackVerifyBox(Colors.redAccent, "Repaired"),
-                  CrackVerifyBox(Colors.yellow, "Scheduled"),
-                  CrackVerifyBox(Colors.orangeAccent, "UnScheduled"),
-
-
-                ],
-              ),
-            ),),
+            tabs[_currentIndex]
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Colors.white,
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: DEFAULT_COLOR,
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (value){
+          setState(() {
+            _currentIndex=value;
+          });
         },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              activeColor: BOTTOM_NAVI_ACTIVE_COLOR,
-              inactiveColor: Colors.black54,
-              title: Text('Not verify'),
-              icon: Icon(Icons.calendar_today_rounded,size: 22)
-          ),
-          BottomNavyBarItem(
-              activeColor: BOTTOM_NAVI_ACTIVE_COLOR,
-              inactiveColor: Colors.black54,
-              title: Text('Verify'),
-              icon: Icon(Icons.account_circle,size: 22)
-          ),
+        selectedFontSize: 14,
+        unselectedFontSize: 12,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.remove_circle_outline_rounded),title: Text(
+            "Not Verify",
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w700,
+                ),
+          ),),
+          BottomNavigationBarItem(
+            backgroundColor: Colors.green,
+            icon: Icon(Icons.verified),title: Text(
+            "Verify",
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w700,
+               ),
+          ),)
         ],
-      ),
+      )
     );
   }
 }
+
+

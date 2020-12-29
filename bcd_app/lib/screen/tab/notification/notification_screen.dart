@@ -16,7 +16,11 @@ class NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(backgroundColor:DEFAULT_COLOR,title: Text("Notification",style: TextStyle(color: Colors.white),)),
+        appBar: AppBar(backgroundColor:DEFAULT_COLOR,title: Text("Notification",style: TextStyle(color: Colors.white),), actions: <Widget>[
+          IconButton(icon: Icon(Icons.search),
+              onPressed: () {
+              })
+        ],),
         drawer: MainDrawer(),
 
         body:Container(

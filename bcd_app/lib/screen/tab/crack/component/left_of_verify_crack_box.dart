@@ -1,4 +1,6 @@
 import 'package:bcd_app/screen/navigation_screen.dart';
+import 'package:bcd_app/screen/tab/crack/detail_form/crack_detail.dart';
+import 'package:bcd_app/screen/tab/crack/component/crack_detail_2.dart';
 import 'package:bcd_app/screen/tab/home/home_screen.dart';
 import 'package:bcd_app/utils/bcd_utils.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
@@ -37,20 +39,32 @@ class LeftOfVerifyCrackBox extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(height: double.infinity,width: 10,
-              decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10))
-
-              )
+          Container(height: double.infinity,
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 130,
+                    child: Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                'https://www.designingbuildings.co.uk/w/images/6/6c/Cracking.jpg'),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10),topLeft:Radius.circular(10)),
+                      ),
+                    ),
+                  ),
+                ],)
           ),
-          LeftCrackBoxImage(),
           VerifyButtonBottom(color,status),
-          Container(margin: EdgeInsets.only(left: 10),child:
-          IconButton(icon: Icon(Icons.double_arrow_rounded,size: 30,color: Colors.black12,), onPressed: (){
+          Container(child:
+          IconButton(icon: Icon(Icons.double_arrow_rounded,size: 30,color: color,), onPressed: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NavigationScreen()),
+              MaterialPageRoute(builder: (context) => CrackDetail2(status: status,)),
             );
           },))
         ],

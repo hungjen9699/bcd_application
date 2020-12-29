@@ -13,7 +13,7 @@ class MainDrawer extends StatelessWidget {
     return Drawer(
 child: Stack(children: [
   Container(
-    color: Color.fromRGBO(37, 49, 61, 1),
+    color: Colors.white,
     child:
     Column(children: [
       Container(
@@ -57,14 +57,14 @@ child: Stack(children: [
 
       ),
       Container(
-        color: Color(0xFFB1F2B36),
+        color: Colors.white,
         width: double.infinity,
         child: Column(children: [
           ListTile(
-            leading: Icon(LineIcons.home,color: Colors.white),
+            leading: Icon(LineIcons.home,color: Colors.black54),
             title: Text(
               'Home',
-              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
 
             ),
             onTap: (){
@@ -75,10 +75,10 @@ child: Stack(children: [
             },
           ),
           ListTile(
-            leading: Icon(LineIcons.mail_forward,color: Colors.white),
+            leading: Icon(LineIcons.mail_forward,color: Colors.black54),
             title: Text(
               'Notification',
-              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
             ),
             onTap: (){
               Navigator.push(
@@ -88,10 +88,10 @@ child: Stack(children: [
             },
           ),
           ListTile(
-            leading: Icon(LineIcons.building_o,color: Colors.white),
+            leading: Icon(LineIcons.building_o,color: Colors.black54),
             title: Text(
               'Crack',
-              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
 
             ),
             onTap: (){
@@ -102,10 +102,10 @@ child: Stack(children: [
             },
           ),
           ListTile(
-            leading: Icon(LineIcons.calendar,color: Colors.white,),
+            leading: Icon(LineIcons.calendar,color: Colors.black54,),
             title: Text(
               'Schedule',
-              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
 
             ),
             onTap: (){
@@ -116,10 +116,10 @@ child: Stack(children: [
             },
           ),
           ListTile(
-            leading: Icon(LineIcons.user,color: Colors.white),
+            leading: Icon(LineIcons.user,color: Colors.black54),
             title: Text(
               'Account',
-              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
 
             ),
             onTap: (){
@@ -138,17 +138,29 @@ child: Stack(children: [
       alignment: Alignment.bottomCenter,
       child: Container(
         width: double.infinity,
-        height: 50,
-        color:  Color(0xFFB1F2B36),
-        child: ListTile(
-          leading: Icon(LineIcons.sign_out,color: Colors.white),
-          title: Text(
-            'Logout',
-            style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),
-
+        height: 60,
+        color: Colors.white,
+        child: Column(children: [
+          Opacity(
+            opacity: 0.501960813999176,
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 1,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xffb7b7b7),
+                      width: 0.5,
+                    ))),
           ),
-          onTap: null,
-        ),
+          ListTile(
+            leading: Icon(LineIcons.sign_out,color: Colors.black54),
+            title: Text(
+              'Logout',
+              style: TextStyle(fontFamily: 'Montserrat',fontSize: 16,fontWeight: FontWeight.w700,color: Colors.black54),
+            ),
+            onTap: null,
+          ),
+        ],),
       ),
     ),
   )

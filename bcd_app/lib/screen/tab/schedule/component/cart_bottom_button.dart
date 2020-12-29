@@ -1,14 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class VerifyButtonBottom extends StatelessWidget {
+class CartBottomButton extends StatelessWidget {
   final Color color;
   final String status;
-  VerifyButtonBottom(this.color, this.status);
+  CartBottomButton(this.color, this.status);
 
   @override
   Widget build(BuildContext context) {
     return    Container(
-      margin: EdgeInsets.only(left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,21 +58,6 @@ class VerifyButtonBottom extends StatelessWidget {
                 )
               ],),
             ),
-            Container(
-              child:
-              Row(children: [
-                Icon(status=="Repaired"?Icons.done:status=="Scheduled"?Icons.hardware:Icons.close_outlined, size: 20, color: status=="Repaired"?Colors.green:status=="Scheduled"?Colors.blueAccent:Colors.blueGrey,)
-                , Text(
-                  status,
-                  style: TextStyle(
-                     color: status=="Repaired"?Colors.green:status=="Scheduled"?Colors.blueAccent:Colors.blueGrey,
-                      fontFamily: 'Montserrat',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700),
-                )
-              ],),
-            ),
-
 
 
           ],

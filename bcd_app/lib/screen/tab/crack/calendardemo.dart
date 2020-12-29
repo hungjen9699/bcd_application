@@ -1,3 +1,4 @@
+import 'package:bcd_app/screen/navigation_screen.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -12,7 +13,12 @@ class CalendarDemo extends StatelessWidget {
         SfCalendar(
           view: CalendarView.month,
           onTap: (CalendarTapDetails details) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NavigationScreen()),
+            );
           },
+
           dataSource: MeetingDataSource(_getDataSource()),
           monthViewSettings: MonthViewSettings(
               showAgenda: true,

@@ -14,6 +14,7 @@ class CrackNotVerifyBox extends StatelessWidget {
         margin: EdgeInsets.only(left:10,top: 20),
         child: Row(
           children: [
+
             LeftOfNotVerifyCrackBox()
           ],
         ));
