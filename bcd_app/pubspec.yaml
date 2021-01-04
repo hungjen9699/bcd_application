@@ -50,6 +50,9 @@ dependencies:
   date_picker_timeline: ^1.0.0
   fancy_bottom_navigation: ^0.1.0
   ff_navigation_bar: ^0.1.5
+  flutter_datetime_picker: ^1.4.0
+  custom_switch: ^0.0.1
+  intl: ^0.15.8
 
 dev_dependencies:
   flutter_test:

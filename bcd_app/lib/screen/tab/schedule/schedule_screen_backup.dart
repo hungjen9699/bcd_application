@@ -1,15 +1,7 @@
-import 'package:bcd_app/screen/tab/account/component/avatar_box.dart';
-import 'package:bcd_app/screen/tab/crack/calendardemo.dart';
-import 'package:bcd_app/screen/tab/crack/component/crack_not_verify_box.dart';
-import 'package:bcd_app/screen/tab/crack/component/crack_verify_box.dart';
-import 'package:bcd_app/screen/tab/crack/component/left_bar.dart';
 import 'package:bcd_app/screen/tab/schedule/component/history_box.dart';
-import 'package:bcd_app/screen/tab/schedule/component/left_of_history_box.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-
-
 
 class ScheduleScreen extends StatefulWidget {
   ScheduleScreen();
@@ -23,7 +15,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700 ,
+      height: 700,
       child: DefaultTabController(
         length: 3,
         child: Column(
@@ -36,7 +28,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     Tab(text: "Cart"),
                     Tab(text: "Schedule"),
                     Tab(text: "History"),
-
                   ],
                   labelColor: Colors.white,
                   unselectedLabelColor: Colors.black,
@@ -52,40 +43,47 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 child: TabBarView(children: [
                   Container(
                     height: 600,
-                    child: Column(children: [
-                      Expanded(child: Container(child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: Column(
-                            children: <Widget>[
-                              CrackNotVerifyBox( "xx"),
-                              CrackNotVerifyBox("xx"),
-                              CrackNotVerifyBox("xx"),
-                              CrackNotVerifyBox( "xx"),
-
-                            ],
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            child: SingleChildScrollView(
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  children: <Widget>[
+                                    // CrackNotVerifyBox( "xx"),
+                                    // CrackNotVerifyBox("xx"),
+                                    // CrackNotVerifyBox("xx"),
+                                    // CrackNotVerifyBox( "xx"),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
+                          flex: 8,
                         ),
-                      ),),flex: 8,),
-                      Expanded(child: Container(
-                        height: 40,
-                        width: 40,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.red,
-                          radius: 25,
-                          child: IconButton(
-                            iconSize: 30,
-                            padding: EdgeInsets.zero,
-                            icon: Icon(LineIcons.plus),
-                            color: Colors.white,
-                            onPressed: () {},
+                        Expanded(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.red,
+                              radius: 25,
+                              child: IconButton(
+                                iconSize: 30,
+                                padding: EdgeInsets.zero,
+                                icon: Icon(LineIcons.plus),
+                                color: Colors.white,
+                                onPressed: () {},
+                              ),
+                            ),
                           ),
-                        ),),
-                        flex: 2,)
-                    ],),
+                          flex: 2,
+                        )
+                      ],
+                    ),
                   ),
-
-                  CalendarDemo(),
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Column(

@@ -1,6 +1,11 @@
+import 'package:bcd_app/objects/userDTO.dart';
 import 'package:flutter/material.dart';
 
 class AvatarBox extends StatelessWidget {
+  final UserDTO dto;
+
+  const AvatarBox({Key key, this.dto}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,8 +21,7 @@ class AvatarBox extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          border:
-          Border.all(color: const Color(0xff7e7e7e), width: 0.01),
+          border: Border.all(color: const Color(0xff7e7e7e), width: 0.01),
           color: const Color(0xffffffff)),
       child: Column(
         children: [
@@ -27,29 +31,32 @@ class AvatarBox extends StatelessWidget {
             margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border:  Border.all(color: const Color(0xff7e7e7e), width: 2),
+              border: Border.all(color: const Color(0xff7e7e7e), width: 2),
               image: DecorationImage(
-                  image: NetworkImage('https://voz.vn/data/avatars/o/1674/1674252.jpg?1594502766'),
-                  fit: BoxFit.fill
-              ),
+                  image: NetworkImage(
+                      'https://voz.vn/data/avatars/o/1674/1674252.jpg?1594502766'),
+                  fit: BoxFit.fill),
             ),
           ),
           Container(
               margin: EdgeInsets.only(top: 10),
-              child:  Text(
-                'Tran Hoang Dung',
-                style: TextStyle(fontFamily: 'Montserrat',fontSize: 18,fontWeight: FontWeight.w700),
-
-              )
-          ),
+              child: Text(
+                dto.name,
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700),
+              )),
           Container(
               margin: EdgeInsets.only(top: 10),
-              child:  Text(
-                'dunghgBCD@gmail.com',
-                style: TextStyle(fontFamily: 'Montserrat',fontSize: 10,fontWeight: FontWeight.w700,color: Colors.black26),
-
-              )
-          )
+              child: Text(
+                dto.email,
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black26),
+              )),
         ],
       ),
     );

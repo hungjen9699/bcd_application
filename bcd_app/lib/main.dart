@@ -1,4 +1,3 @@
-import 'package:bcd_app/screen/dashboard.dart';
 import 'package:bcd_app/screen/login/login.dart';
 import 'package:bcd_app/screen/navigation_screen.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
@@ -29,11 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         primaryColor: Colors.blue,
         textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
-        primaryTextTheme: TextTheme(
-            title: TextStyle(
-                color: Colors.black87
-            )
-        ),
+        primaryTextTheme: TextTheme(title: TextStyle(color: Colors.black87)),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -84,6 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return CrackScreen();
+    return LoginPage();
   }
 }

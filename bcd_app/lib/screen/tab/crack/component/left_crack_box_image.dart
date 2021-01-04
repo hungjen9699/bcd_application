@@ -1,12 +1,12 @@
-import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/material.dart';
 
 class LeftCrackBoxImage extends StatelessWidget {
   LeftCrackBoxImage();
   @override
   Widget build(BuildContext context) {
-    return         Container(height: double.infinity,
-        child:Row(
+    return Container(
+        height: double.infinity,
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
@@ -19,11 +19,13 @@ class LeftCrackBoxImage extends StatelessWidget {
                       image: NetworkImage(
                           'https://www.designingbuildings.co.uk/w/images/6/6c/Cracking.jpg'),
                       fit: BoxFit.cover),
-                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10),topLeft:Radius.circular(10)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
                 ),
               ),
             ),
-          ],)
-    );
+          ],
+        ));
   }
 }

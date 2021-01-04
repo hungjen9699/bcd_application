@@ -1,15 +1,16 @@
+import 'package:bcd_app/objects/userDTO.dart';
 import 'package:bcd_app/screen/drawer/main_drawer.dart';
-import 'package:bcd_app/screen/navigation_screen.dart';
-import 'package:bcd_app/screen/tab/crack/calendardemo.dart';
-import 'package:bcd_app/screen/tab/schedule/cart_screen.dart';
+import 'package:bcd_app/screen/tab/schedule/queue_screen.dart';
+import 'package:bcd_app/screen/tab/schedule/unscheduled_screen.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'component/history_box.dart';
 
 class ScheduleScreen extends StatefulWidget {
-  ScheduleScreen();
+  final UserDTO dto;
+
+  const ScheduleScreen({Key key, this.dto}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return ScheduleScreenState();
@@ -19,7 +20,7 @@ class ScheduleScreen extends StatefulWidget {
 class ScheduleScreenState extends State<ScheduleScreen> {
   int _currentIndex = 0;
   PageController _pageController;
-  double _animatedWidth = 0;
+  bool isAdd = false;
 
   @override
   void initState() {
@@ -43,19 +44,18 @@ class ScheduleScreenState extends State<ScheduleScreen> {
             style: TextStyle(color: Colors.white),
           ),
           actions: <Widget>[
-            _currentIndex==0?IconButton(
-                icon: Icon(Icons.library_add),
-                onPressed: () {
-                  setState(() {
-                    if (_animatedWidth == 30) {
-                      _animatedWidth = 0;
-                    } else
-                      _animatedWidth = 30;
-                  });
-                }):Text("")
+            _currentIndex != 2
+                ? IconButton(
+                    icon: Icon(Icons.library_add),
+                    onPressed: () {
+                      setState(() {
+                        isAdd == true ? isAdd = false : isAdd = true;
+                      });
+                    })
+                : Text("")
           ],
         ),
-        drawer: MainDrawer(),
+        drawer: MainDrawer(dto: widget.dto),
         body: SizedBox.expand(
           child: PageView(
             scrollDirection: Axis.vertical,
@@ -65,32 +65,9 @@ class ScheduleScreenState extends State<ScheduleScreen> {
             },
             children: <Widget>[
               _currentIndex == 0
-                  ? SingleChildScrollView(
-                      child: Container(
-                        child: Column(
-                          children: [
-                            CartScreenTab(
-                                Colors.yellow, "Fixed", _animatedWidth, false),
-                            CartScreenTab(Colors.redAccent, "Removed",
-                                _animatedWidth, false),
-                            Container(
-                              margin: EdgeInsets.only(top: 200),
-                              child: IconButton(
-                                icon: Icon(Icons.add_circle,
-                                    size: 50, color: Colors.green),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NavigationScreen()),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
+                  ? UnScheduledScreen(widget.dto, isAdd)
                   : _currentIndex == 1
-                      ? CalendarDemo()
+                      ? QueueScreen(widget.dto, isAdd)
                       : SingleChildScrollView(
                           child: Container(
                             child: Column(

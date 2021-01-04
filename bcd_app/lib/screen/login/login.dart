@@ -1,6 +1,10 @@
+import 'package:bcd_app/objects/userDTO.dart';
+import 'package:bcd_app/repositories/user_repository.dart';
 import 'package:bcd_app/screen/login/verify_detail/without_schedule_verify_detail.dart';
 import 'package:bcd_app/screen/navigation_screen.dart';
+import 'package:bcd_app/screen/tab/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'forgot_password.dart';
 
@@ -10,6 +14,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController username = new TextEditingController(text: "");
+  TextEditingController password = new TextEditingController(text: "");
+  double _animatedHeight = 0;
   @override
   Widget build(BuildContext context) {
     // final logo = Padding(
@@ -22,12 +29,13 @@ class _LoginPageState extends State<LoginPage> {
     //       )),
     // );
 
-    final inputEmail = Padding(
+    final inputUsername = Padding(
       padding: EdgeInsets.only(bottom: 10),
       child: TextField(
-        keyboardType: TextInputType.emailAddress,
+        controller: username,
+        keyboardType: TextInputType.text,
         decoration: InputDecoration(
-            hintText: 'Email',
+            hintText: 'Username',
             hintStyle: TextStyle(color: Colors.white),
             contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             border:
@@ -38,7 +46,8 @@ class _LoginPageState extends State<LoginPage> {
     final inputPassword = Padding(
       padding: EdgeInsets.only(bottom: 20),
       child: TextField(
-        keyboardType: TextInputType.text,
+        controller: password,
+        keyboardType: TextInputType.visiblePassword,
         obscureText: true,
         decoration: InputDecoration(
             hintText: 'Password',
@@ -60,9 +69,29 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.black87,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => NavigationScreen()));
+          onPressed: () async {
+            if (username.text == '' || password.text == '') {
+            } else {
+              UserRepository userRepo = new UserRepository();
+              UserDTO dto = await userRepo.login(username.text, password.text);
+              if (dto != null) {
+                final prefs = await SharedPreferences.getInstance();
+                prefs.setString('jwtToken', dto.jwtToken);
+                prefs.setString('userId', dto.userId);
+                dto = await userRepo.getUserLogin(dto.jwtToken, dto.userId);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            dto: dto,
+                          )),
+                );
+              } else {
+                setState(() {
+                  _animatedHeight = 50;
+                });
+              }
+            }
           },
         ),
       ),
@@ -92,10 +121,17 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 // logo,
-                inputEmail,
+                inputUsername,
                 inputPassword,
                 buttonLogin,
-                buttonForgotPassword
+                buttonForgotPassword,
+                AnimatedContainer(
+                    height: _animatedHeight,
+                    duration: Duration.zero,
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 35),
+                    child: Text("Your username or password is incorrect",
+                        style: TextStyle(color: Colors.red)))
               ],
             ),
           ),

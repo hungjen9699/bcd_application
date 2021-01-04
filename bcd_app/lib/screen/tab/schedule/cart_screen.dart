@@ -1,8 +1,5 @@
-import 'package:bcd_app/screen/tab/crack/component/left_of_not_verify_crack_box.dart';
 import 'package:bcd_app/screen/tab/schedule/component/left_of_cart_box.dart';
-import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/material.dart';
-
 
 class CartScreenTab extends StatelessWidget {
   final Color color;
@@ -16,9 +13,7 @@ class CartScreenTab extends StatelessWidget {
     return Container(
         margin: EdgeInsets.only(top: 20),
         child: Row(
-          children: [
-            LeftOfCartBox(color,value,_animatedWidth,isCart)
-          ],
+          children: [LeftOfCartBox(color, value, _animatedWidth, isCart)],
         ));
   }
 }
