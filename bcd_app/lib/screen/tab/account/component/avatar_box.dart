@@ -1,4 +1,5 @@
 import 'package:bcd_app/objects/userDTO.dart';
+import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/material.dart';
 
 class AvatarBox extends StatelessWidget {
@@ -21,8 +22,8 @@ class AvatarBox extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          border: Border.all(color: const Color(0xff7e7e7e), width: 0.01),
-          color: const Color(0xffffffff)),
+          border: Border.all(color: ILLUSTRATION_GREY_HIGH_COLOR, width: 0.01),
+          color: Colors.white),
       child: Column(
         children: [
           Container(
@@ -31,7 +32,7 @@ class AvatarBox extends StatelessWidget {
             margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xff7e7e7e), width: 2),
+              border: Border.all(color: ILLUSTRATION_GREY_HIGH_COLOR, width: 2),
               image: DecorationImage(
                   image: NetworkImage(
                       'https://voz.vn/data/avatars/o/1674/1674252.jpg?1594502766'),
@@ -42,17 +43,13 @@ class AvatarBox extends StatelessWidget {
               margin: EdgeInsets.only(top: 10),
               child: Text(
                 dto.name,
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
               )),
           Container(
               margin: EdgeInsets.only(top: 10),
               child: Text(
                 dto.email,
                 style: TextStyle(
-                    fontFamily: 'Montserrat',
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
                     color: Colors.black26),

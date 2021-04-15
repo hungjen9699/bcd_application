@@ -7,7 +7,7 @@ class ScheduledVerifyDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //  resizeToAvoidBottomPadding: false,
       body: ListView(
         children: <Widget>[
           CoreVerifyDetail(),
@@ -17,7 +17,7 @@ class ScheduledVerifyDetail extends StatelessWidget {
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Maintenance Worker",
+                  labelText: "Repairer",
                   labelStyle: TextStyle(fontSize: 15, color: Colors.pink),
                 ),
               )),
@@ -27,7 +27,7 @@ class ScheduledVerifyDetail extends StatelessWidget {
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Maintenance Time",
+                  labelText: "Repair Time",
                   labelStyle: TextStyle(fontSize: 15, color: Colors.pink),
                 ),
               )),

@@ -5,18 +5,16 @@ import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../account_screen.dart';
-
-class ChangePassword extends StatefulWidget {
+class ChangePassword2 extends StatefulWidget {
   final String status;
   final UserDTO dto;
-  ChangePassword({@required this.status, @required this.dto});
+  ChangePassword2({@required this.status, @required this.dto});
 
   @override
   _DetailsState createState() => _DetailsState();
 }
 
-class _DetailsState extends State<ChangePassword> {
+class _DetailsState extends State<ChangePassword2> {
   TextEditingController oldPass = new TextEditingController(text: "");
   TextEditingController newPass = new TextEditingController(text: "");
   TextEditingController confirm = new TextEditingController(text: "");
@@ -43,7 +41,6 @@ class _DetailsState extends State<ChangePassword> {
                               child: Text(
                             "Change Password",
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 22,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700),
@@ -114,7 +111,6 @@ class _DetailsState extends State<ChangePassword> {
                               child: Text(
                                 "Old Password",
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
                                     fontSize: 14,
                                     color: DEFAULT_COLOR,
                                     fontWeight: FontWeight.w700),
@@ -152,7 +148,6 @@ class _DetailsState extends State<ChangePassword> {
                               child: Text(
                                 "New Password",
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
                                     fontSize: 14,
                                     color: DEFAULT_COLOR,
                                     fontWeight: FontWeight.w700),
@@ -189,7 +184,6 @@ class _DetailsState extends State<ChangePassword> {
                               child: Text(
                                 "Confirm Password",
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
                                     fontSize: 14,
                                     color: DEFAULT_COLOR,
                                     fontWeight: FontWeight.w700),
@@ -241,25 +235,28 @@ class _DetailsState extends State<ChangePassword> {
                                   if (result == null) {
                                     showDialog(
                                         context: this.context,
-                                        child: NotiDiaglog(
+                                        builder: (_) => NotiDiaglog(
                                             "Error",
                                             "Your old password maybe incorrect",
-                                            Colors.red));
+                                            Colors.red,
+                                            widget.dto));
                                   } else if (result
                                       .contains("Change password success")) {
                                     showDialog(
                                         context: this.context,
-                                        child: NotiDiaglog(
+                                        builder: (_) => NotiDiaglog(
                                             "Notification",
                                             "You successfully changed your password",
-                                            Colors.green));
+                                            Colors.green,
+                                            widget.dto));
                                   } else {
                                     showDialog(
                                         context: this.context,
-                                        child: NotiDiaglog(
+                                        builder: (_) => NotiDiaglog(
                                             "Error",
                                             "Your old password maybe incorrect",
-                                            Colors.red));
+                                            Colors.red,
+                                            widget.dto));
                                   }
                                 }
                               },

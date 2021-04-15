@@ -1,140 +1,220 @@
 import 'package:bcd_app/objects/userDTO.dart';
 import 'package:bcd_app/repositories/user_repository.dart';
-import 'package:bcd_app/screen/login/verify_detail/without_schedule_verify_detail.dart';
-import 'package:bcd_app/screen/navigation_screen.dart';
-import 'package:bcd_app/screen/tab/home/home_screen.dart';
+import 'package:bcd_app/screen/tab/home/nativigate_after_login.dart';
+import 'package:bcd_app/utils/flutter_constant.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import 'fade_animation.dart';
 import 'forgot_password.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginScreenTrash extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => new _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreenTrash> {
   TextEditingController username = new TextEditingController(text: "");
   TextEditingController password = new TextEditingController(text: "");
-  double _animatedHeight = 0;
+  String errorUsername = "";
+  String errorPassword = "";
+
   @override
   Widget build(BuildContext context) {
-    // final logo = Padding(
-    //   padding: EdgeInsets.all(20),
-    //   child: Hero(
-    //       tag: 'hero',
-    //       child: SizedBox(
-    //         height: 160,
-    //         child: Image.asset('assets/login.jpg'),
-    //       )),
-    // );
-
-    final inputUsername = Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: TextField(
-        controller: username,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-            hintText: 'Username',
-            hintStyle: TextStyle(color: Colors.white),
-            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(50.0))),
-      ),
-    );
-
-    final inputPassword = Padding(
-      padding: EdgeInsets.only(bottom: 20),
-      child: TextField(
-        controller: password,
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: true,
-        decoration: InputDecoration(
-            hintText: 'Password',
-            hintStyle: TextStyle(color: Colors.white),
-            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50.0),
-            )),
-      ),
-    );
-
-    final buttonLogin = Padding(
-      padding: EdgeInsets.only(bottom: 5),
-      child: ButtonTheme(
-        height: 56,
-        child: RaisedButton(
-          child: Text('Login',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-          color: Colors.black87,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () async {
-            if (username.text == '' || password.text == '') {
-            } else {
-              UserRepository userRepo = new UserRepository();
-              UserDTO dto = await userRepo.login(username.text, password.text);
-              if (dto != null) {
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setString('jwtToken', dto.jwtToken);
-                prefs.setString('userId', dto.userId);
-                dto = await userRepo.getUserLogin(dto.jwtToken, dto.userId);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                            dto: dto,
-                          )),
-                );
-              } else {
-                setState(() {
-                  _animatedHeight = 50;
-                });
-              }
-            }
-          },
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Colors.teal[300],
+          Colors.teal[200],
+          Colors.teal[100]
+        ])),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 80,
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FadeAnimation(
+                      1,
+                      Text(
+                        "LOGIN",
+                        style: TextStyle(color: Colors.white, fontSize: 30),
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FadeAnimation(
+                      1.3,
+                      Text(
+                        "Welcome to BCD System",
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      )),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60))),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 60,
+                        ),
+                        FadeAnimation(
+                            1.4,
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: DEFAULT_COLOR_2,
+                                        blurRadius: 20,
+                                        offset: Offset(0, 10))
+                                  ]),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.grey[200]))),
+                                      child: TextField(
+                                        controller: username,
+                                        maxLength: 15,
+                                        style: TextStyle(color: Colors.black87),
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        onChanged: (text) {
+                                          setState(() {
+                                            if (text.length > 20) {
+                                              errorUsername =
+                                                  "Username must less than 15 characters";
+                                            } else
+                                              errorUsername = "";
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                            hintText: "Enter username",
+                                            errorText: errorUsername,
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: InputBorder.none),
+                                      )),
+                                  Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              bottom: BorderSide(
+                                                  color: Colors.grey[200]))),
+                                      child: TextField(
+                                        controller: password,
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        maxLength: 20,
+                                        obscureText: true,
+                                        style: TextStyle(color: Colors.black87),
+                                        decoration: InputDecoration(
+                                            hintText: "Enter password",
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: InputBorder.none),
+                                      )),
+                                ],
+                              ),
+                            )),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (c) => ForgotPassword()));
+                            },
+                            child: Container(
+                              child: FadeAnimation(
+                                  1.5,
+                                  Text(
+                                    "Forgot Password?",
+                                    style: TextStyle(color: Colors.grey),
+                                  )),
+                            )),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        FadeAnimation(
+                            1.6,
+                            Container(
+                              height: 40,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: DEFAULT_COLOR_2,
+                              ),
+                              child: RaisedButton(
+                                child: Text('Login',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15)),
+                                color: DEFAULT_COLOR,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                onPressed: () async {
+                                  if (username.text == '') {
+                                  } else {
+                                    UserRepository userRepo =
+                                        new UserRepository();
+                                    UserDTO dto = await userRepo.login(
+                                        username.text, password.text);
+                                    if (dto != null) {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (c) =>
+                                                  NativigateAfterLogin(
+                                                    username: username.text,
+                                                    password: password.text,
+                                                  )),
+                                          (route) => false);
+                                    } else {
+                                      setState(() {
+                                        username.text = "";
+                                        password.text = "";
+                                      });
+                                      Flushbar(
+                                        message:
+                                            "Your username or password is incorrect!!",
+                                        duration: Duration(seconds: 3),
+                                      )..show(context);
+                                    }
+                                  }
+                                },
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
-
-    final buttonForgotPassword = FlatButton(
-      child: Text(
-        'Forgot Password',
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-      onPressed: () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-      },
-    );
-    return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          image: AssetImage("assets/3.gif"),
-          fit: BoxFit.cover,
-        )),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              children: <Widget>[
-                // logo,
-                inputUsername,
-                inputPassword,
-                buttonLogin,
-                buttonForgotPassword,
-                AnimatedContainer(
-                    height: _animatedHeight,
-                    duration: Duration.zero,
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 35),
-                    child: Text("Your username or password is incorrect",
-                        style: TextStyle(color: Colors.red)))
-              ],
-            ),
-          ),
-        ));
   }
 }

@@ -1,10 +1,4 @@
-import 'package:bcd_app/screen/navigation_screen.dart';
-import 'package:bcd_app/screen/tab/crack/component/left_crack_box_image.dart';
-import 'package:bcd_app/screen/tab/crack/component/verify_bottom_button.dart';
-import 'package:bcd_app/screen/tab/home/home_screen.dart';
 import 'package:bcd_app/screen/tab/schedule/component/history_button_bottom.dart';
-import 'package:bcd_app/utils/bcd_utils.dart';
-import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/material.dart';
 
 import 'history_detail.dart';
@@ -46,7 +40,7 @@ class LeftOfHistoryBox extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10)))),
-          LeftCrackBoxImage(),
+          //LeftCrackBoxImage(),
           HistoryBottomButton(color, status),
           Container(
               margin: EdgeInsets.only(left: 10),

@@ -1,13 +1,8 @@
-import 'dart:ui';
+class MyUtil {
+  MyUtil();
 
-class HexColor extends Color {
-  static int _getColorFromHex(String hexColor) {
-    hexColor = hexColor.toUpperCase().replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF" + hexColor;
-    }
-    return int.parse(hexColor, radix: 16);
+  static String convertToPercent(double number) {
+    // return (((number ?? 0) * 100).toStringAsFixed(1)) + " %";
+    return number.toStringAsFixed(1) + " %" ?? '1' + " %";
   }
-
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

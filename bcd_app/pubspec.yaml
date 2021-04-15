@@ -23,24 +23,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_auth: ^0.16.1
+  firebase_core: ^0.5.0+1
   flutter_bloc: ^4.0.0
   equatable: ^1.2.0
   meta: ^1.1.6
   rxdart: ^0.23.1
   font_awesome_flutter: ^8.4.0
+  firebase_messaging: ^7.0.3
   datetime_picker_formfield: ^1.0.0
   shared_preferences: ^0.5.6+1
-  file_picker: ^1.12.0
   http: ^0.12.1
   async: ^2.4.1
   rflutter_alert: ^1.0.2
-  flutter_rating_bar: ^3.0.1+1
+  flutter_rating_bar: ^1.1.0
   rating_dialog: ^1.0.0
   quick_feedback: ^0.1.1
   bottom_navy_bar: ^5.4.0
   flutter_money_formatter: ^0.8.3
-  bubble_tab_indicator: "^0.1.4"
+  bubble_bottom_bar: ^1.2.0
   flutter_multiselect: ^0.0.1
   line_icons: ^0.2.0
   syncfusion_flutter_calendar: ^18.1.45-beta
@@ -48,15 +48,34 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   date_picker_timeline: ^1.0.0
-  fancy_bottom_navigation: ^0.1.0
-  ff_navigation_bar: ^0.1.5
   flutter_datetime_picker: ^1.4.0
   custom_switch: ^0.0.1
   intl: ^0.15.8
+  lite_rolling_switch: ^0.1.1
+  carousel_slider: ^2.3.1
+  flutter_switch: ^0.2.0
+  flutter_slidable: ^0.5.7
+  flushbar: ^1.10.4
+  skeleton_text: ^2.0.2
+  simple_animations: ^1.3.3
+  photo_view: ^0.10.3
+  flip_card: ^0.4.4
+  dotted_line: ^2.0.2
+  getwidget: ^1.2.4
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: 0.8.1
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/bcd-logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,18 +88,27 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-    - family: Montserrat
+    - family: Poppins
       fonts:
-        - asset: fonts/Montserrat-Black.ttf
+        - asset: fonts/poppins/Poppins-Medium.ttf
+        - asset: fonts/poppins/Poppins-Black.ttf
           weight: 700
-        - asset: fonts/Montserrat-Light.ttf
-          weight: 300
-        - asset: fonts/Montserrat-SemiBold.ttf
+        - asset: fonts/poppins/Poppins-Italic.ttf
+          style: italic
+        - asset: fonts/poppins/Poppins-SemiBold.ttf
           weight: 400
+        - asset: fonts/poppins/Poppins-Light.ttf
+          weight: 200
+        - asset: fonts/poppins/Poppins-Thin.ttf
+          weight: 300
+        - asset: fonts/poppins/Poppins-ExtraLight.ttf
+          weight: 100
+          
   assets:
-    - assets/login.jpg
-    - assets/test.jpg
-    - assets/3.gif
+    - assets/
+
+
+
 
 
 

@@ -1,8 +1,11 @@
+import 'package:intl/intl.dart';
+
 class CrackDTO {
   final int crackId;
-  final int maintenanceOrderId;
+  int maintenanceOrderId;
   final int locationId;
   final String locationName;
+  final double accuracy;
   final String reporterId;
   final String reporterName;
   final String position;
@@ -10,6 +13,7 @@ class CrackDTO {
   final String severity;
   final String status;
   final String image;
+  final String imageThumbnails;
   final int assessmentResult;
   final String assessmentDescription;
   final String created;
@@ -21,6 +25,7 @@ class CrackDTO {
     this.crackId,
     this.maintenanceOrderId,
     this.locationId,
+    this.accuracy,
     this.locationName,
     this.reporterId,
     this.reporterName,
@@ -35,30 +40,53 @@ class CrackDTO {
     this.lastModified,
     this.createdDate,
     this.modifiedDate,
+    this.imageThumbnails,
   });
 
   factory CrackDTO.fromJson(Map<String, dynamic> json) {
     return new CrackDTO._(
-      crackId: json['crackId'],
-      maintenanceOrderId: json['maintenanceOrderId'],
-      locationId: json['locationId'],
-      locationName: json['locationName'],
-      reporterId: json['reporterId'],
-      reporterName: json['reporterName'],
-      position: json['position'],
-      description: json['description'],
-      status: json['status'],
-      severity: json['severity'],
-      image: json['image'],
-      assessmentResult: json['assessmentResult'],
-      assessmentDescription: json['assessmentDescription'],
-      created: json['created'],
-      lastModified: json['lastModified'],
-      createdDate:
-          json['created'] == null ? null : DateTime.parse(json['created']),
+      crackId: json['crackId'] ?? 0,
+      maintenanceOrderId: json['maintenanceOrderId'] ?? -1,
+      locationId: json['locationId'] ?? 0,
+      accuracy: convertAccuracy(json['accuracy'] ?? 0),
+      locationName: json['locationName'] ?? "",
+      reporterId: json['reporterId'] ?? "",
+      reporterName: json['reporterName'] ?? "",
+      position: json['position'] ?? "",
+      description: json['description'] ?? "",
+      status: json['status'] ?? "",
+      severity: json['severity'] ?? "",
+      image: json['image'] ?? "",
+      assessmentResult: json['assessmentResult'] ?? 0,
+      assessmentDescription: json['assessmentDescription'] ?? "",
+      created: convertTimeToLocal(json['created']),
+      lastModified: convertTimeToLocal(json['lastModified']),
+      imageThumbnails: json['imageThumbnails'],
+      createdDate: json['created'] == null
+          ? null
+          : DateFormat("yyyy-MM-ddThh:mm:ss")
+              .parse(json['created'] ?? "2021-05-01T08:05:00", true)
+              .toLocal(),
       modifiedDate: json['lastModified'] == null
           ? null
-          : DateTime.parse(json['lastModified']),
+          : DateFormat("yyyy-MM-ddThh:mm:ss")
+              .parse(json['lastModified'] ?? "2021-05-01T08:05:00", true)
+              .toLocal(),
     );
   }
+}
+
+double convertAccuracy(double accuracy) {
+  return accuracy * 100;
+}
+
+String convertTimeToLocal(String time) {
+  try {
+    DateTime tmpDate =
+        DateFormat("yyyy-MM-ddThh:mm:ss").parse(time, true).toLocal();
+    return tmpDate.toString().split(".").first;
+  } catch (e) {
+    print("Error when convert time" + e);
+  }
+  return '';
 }

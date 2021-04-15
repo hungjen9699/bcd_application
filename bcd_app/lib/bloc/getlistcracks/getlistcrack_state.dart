@@ -8,9 +8,11 @@ abstract class GetListCrackState extends Equatable {
 
 class GetListCrackLoading extends GetListCrackState {}
 
+class GetListVerifyCrackLoading extends GetListCrackState {}
+
 class GetListCrackSuccess extends GetListCrackState {
   final List<CrackDTO> listDTO;
-  const GetListCrackSuccess(this.listDTO);
+  GetListCrackSuccess(this.listDTO);
   @override
   List<Object> get props => [listDTO];
 }
@@ -18,9 +20,14 @@ class GetListCrackSuccess extends GetListCrackState {
 class GetQueueSuccess extends GetListCrackState {
   final List<CrackDTO> listDTO;
   final List<WorkerDTO> workerDTO;
-  const GetQueueSuccess(this.listDTO, this.workerDTO);
+  GetQueueSuccess(this.listDTO, this.workerDTO);
   @override
   List<Object> get props => [listDTO];
+}
+
+class GetListFilterSuccess extends GetListCrackState {
+  final List<CrackDTO> listDTO;
+  GetListFilterSuccess(this.listDTO);
 }
 
 class GetListCrackError extends GetListCrackState {}

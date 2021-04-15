@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:bcd_app/objects/userDTO.dart';
 import 'package:bcd_app/screen/drawer/main_drawer.dart';
+import 'package:bcd_app/utils/constant.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -14,17 +18,74 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        //  print(message['notification']);
+        print(message['notification']['title']);
+        showDialog(
+            context: context,
+            builder: (BuildContext builderContext) {
+              Timer(Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                title: Text(message['notification']['title']),
+                content: SingleChildScrollView(
+                  child: Text(message['notification']['body'],
+                      style: TextStyle(color: Colors.black)),
+                ),
+              );
+            });
+
+        return;
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        return;
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      print("Push Messaging token: $token");
+    });
+    _firebaseMessaging.subscribeToTopic("matchscore");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: DEFAULT_COLOR,
-            title: Text(
-              "Account",
-              style: TextStyle(color: Colors.white),
-            )),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Color.fromRGBO(32, 49, 82, 1)),
+          title: Text(
+            'HOME',
+            style: TextStyle(
+              fontSize: 20,
+              color: Color.fromRGBO(32, 49, 82, 1),
+            ),
+          ),
+          actions: [],
+        ),
         drawer: MainDrawer(
           dto: widget.dto,
+          selectedTab: 1,
         ),
         body: Stack(
           children: <Widget>[
@@ -35,7 +96,7 @@ class HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Container(
                     height: 140,
-                    color: DEFAULT_COLOR_3,
+                    color: DEFAULT_COLOR,
                   )
                 ],
               ),
@@ -45,11 +106,13 @@ class HomeScreenState extends State<HomeScreen> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
                               "Good morning, ",
@@ -59,7 +122,7 @@ class HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w300),
                             ),
                             Text(
-                              "Tran Hoang Dung",
+                              widget.dto.name,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -79,6 +142,7 @@ class HomeScreenState extends State<HomeScreen> {
                           Container(
                             height: 40,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Container(
                                   margin: EdgeInsets.symmetric(horizontal: 10),
@@ -88,7 +152,7 @@ class HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(left: 107),
+                                  margin: EdgeInsets.only(right: 10),
                                   child: Text(
                                     "100",
                                     style: TextStyle(color: Colors.black45),
@@ -104,7 +168,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 height: 1,
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                  color: const Color(0xffb7b7b7),
+                                  color: ILLUSTRATION_GREY_HIGH_COLOR,
                                   width: 0.5,
                                 ))),
                           ),
@@ -112,21 +176,27 @@ class HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.only(left: 10, top: 10),
                             height: 25,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 12,
-                                  color: Colors.blue,
-                                ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "Unscheduled",
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                ),
+                                    child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      size: 12,
+                                      color: Colors.blue,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      CrackStatus.UnscheduledForMaintenace,
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                )),
                                 Container(
-                                  margin: EdgeInsets.only(left: 94),
+                                  margin: EdgeInsets.only(right: 10),
                                   child: Text(
                                     "29",
                                     style: TextStyle(color: Colors.black45),
@@ -139,21 +209,27 @@ class HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.only(left: 10),
                             height: 25,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 12,
-                                  color: Colors.green,
-                                ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "Scheduled",
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                ),
+                                    child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      size: 12,
+                                      color: Colors.green,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      CrackStatus.ScheduledForMaintenace,
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                )),
                                 Container(
-                                  margin: EdgeInsets.only(left: 109),
+                                  margin: EdgeInsets.only(right: 10),
                                   child: Text(
                                     "32",
                                     style: TextStyle(color: Colors.black45),
@@ -166,21 +242,27 @@ class HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.only(left: 10),
                             height: 25,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 12,
-                                  color: Colors.orangeAccent,
-                                ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "Fixed",
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                ),
+                                    child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      size: 12,
+                                      color: Colors.orangeAccent,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      CrackStatus.Fixed,
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                )),
                                 Container(
-                                  margin: EdgeInsets.only(left: 140),
+                                  margin: EdgeInsets.only(right: 10),
                                   child: Text(
                                     "19",
                                     style: TextStyle(color: Colors.black45),
@@ -193,21 +275,27 @@ class HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.only(left: 10),
                             height: 25,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Icons.check_circle,
-                                  size: 12,
-                                  color: Colors.red,
-                                ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "Not verify",
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                ),
+                                    child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      size: 12,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Not verify",
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                )),
                                 Container(
-                                  margin: EdgeInsets.only(left: 115),
+                                  margin: EdgeInsets.only(right: 10),
                                   child: Text(
                                     "20",
                                     style: TextStyle(color: Colors.black45),

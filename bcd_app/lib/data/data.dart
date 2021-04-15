@@ -1,12 +1,8 @@
-import 'dart:math';
-
 import 'package:bcd_app/model/event_type_model.dart';
 import 'package:bcd_app/model/date_model.dart';
-import 'package:bcd_app/model/events_model';
+import 'package:bcd_app/model/events_model.dart';
 
-
-List<DateModel> getDates(){
-
+List<DateModel> getDates() {
   List<DateModel> dates = new List<DateModel>();
   DateModel dateModel = new DateModel();
 
@@ -24,7 +20,6 @@ List<DateModel> getDates(){
 
   dateModel = new DateModel();
 
-
   //1
   dateModel.date = "12";
   dateModel.weekDay = "Tue";
@@ -39,7 +34,6 @@ List<DateModel> getDates(){
 
   dateModel = new DateModel();
 
-
   //1
   dateModel.date = "14";
   dateModel.weekDay = "Thu";
@@ -47,14 +41,12 @@ List<DateModel> getDates(){
 
   dateModel = new DateModel();
 
-
   //1
   dateModel.date = "15";
   dateModel.weekDay = "Fri";
   dates.add(dateModel);
 
   dateModel = new DateModel();
-
 
   //1
   dateModel.date = "16";
@@ -64,11 +56,9 @@ List<DateModel> getDates(){
   dateModel = new DateModel();
 
   return dates;
-
 }
 
-List<EventTypeModel> getEventTypes(){
-
+List<EventTypeModel> getEventTypes() {
   List<EventTypeModel> events = new List();
   EventTypeModel eventModel = new EventTypeModel();
 
@@ -96,8 +86,7 @@ List<EventTypeModel> getEventTypes(){
   return events;
 }
 
-List<EventsModel> getEvents(){
-
+List<EventsModel> getEvents() {
   List<EventsModel> events = new List<EventsModel>();
   EventsModel eventsModel = new EventsModel();
 
@@ -128,8 +117,5 @@ List<EventsModel> getEvents(){
 
   eventsModel = new EventsModel();
 
-
   return events;
-
-
 }

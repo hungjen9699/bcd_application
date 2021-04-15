@@ -15,7 +15,7 @@ class FixedVerifyDetail extends StatelessWidget {
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Maintenance Worker",
+                  labelText: "Repairer",
                   labelStyle: TextStyle(fontSize: 15, color: Colors.pink),
                 ),
               )),
@@ -25,7 +25,7 @@ class FixedVerifyDetail extends StatelessWidget {
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: "Maintenance Time",
+                  labelText: "Repair Time",
                   labelStyle: TextStyle(fontSize: 15, color: Colors.pink),
                 ),
               )),
@@ -66,9 +66,7 @@ class FixedVerifyDetail extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                     side: BorderSide(color: Colors.black)),
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 color: Colors.white,
                 child: Text("View History"),
               )),

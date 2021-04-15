@@ -1,10 +1,13 @@
+import 'package:bcd_app/objects/userDTO.dart';
+import 'package:bcd_app/screen/tab/account/account_screen.dart';
 import 'package:flutter/material.dart';
 
 class NotiDiaglog extends StatelessWidget {
   final String title;
   final String message;
   final Color color;
-  NotiDiaglog(this.title, this.message, this.color);
+  final UserDTO dto;
+  NotiDiaglog(this.title, this.message, this.color, this.dto);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -29,10 +32,7 @@ class NotiDiaglog extends StatelessWidget {
                       margin: EdgeInsets.only(top: 15),
                       child: Text(
                         title,
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontFamily: "Montserrat",
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 25, color: Colors.white),
                       ),
                     )
                   ],
@@ -55,8 +55,6 @@ class NotiDiaglog extends StatelessWidget {
                                 child: Text(
                               message,
                               style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black54),
                             )),
@@ -78,9 +76,7 @@ class NotiDiaglog extends StatelessWidget {
                                       padding: EdgeInsets.all(8.0),
                                       splashColor: Colors.blueAccent,
                                       onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
+                                        Navigator.of(context).pop();
                                       },
                                       child: Text(
                                         "Close",

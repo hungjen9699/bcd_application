@@ -1,8 +1,9 @@
-import 'package:bcd_app/screen/login/login.dart';
-import 'package:bcd_app/screen/navigation_screen.dart';
-import 'package:bcd_app/utils/flutter_constant.dart';
-import 'package:bcd_app/screen/tab/crack/crack_screen.dart';
+import 'dart:async';
+
+import 'package:bcd_app/utils/notification_dialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'screen/login/login_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,15 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         iconTheme: IconThemeData(color: Colors.black54),
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        fontFamily: 'Poppins',
         primarySwatch: Colors.red,
         primaryColor: Colors.blue,
         textTheme: TextTheme(subtitle1: TextStyle(color: Colors.white)),
@@ -58,17 +51,48 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        //  print(message['notification']);
+        print(message['notification']['title']);
+        showDialog(
+            context: context,
+            builder: (BuildContext builderContext) {
+              Timer(Duration(seconds: 2), () {
+                Navigator.of(context).pop();
+              });
+              return NotificationDialog(
+                  title: message['notification']['title'],
+                  message: message['notification']['body']);
+            });
+
+        return;
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        return;
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
     });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      print("Push Messaging token: $token");
+    });
+    _firebaseMessaging.subscribeToTopic("matchscore");
   }
 
   @override
@@ -79,6 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return LoginPage();
+    return LoginScreen();
   }
 }

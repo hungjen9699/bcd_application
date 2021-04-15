@@ -36,7 +36,8 @@ class _DetailsState extends State<ProfileScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                  color: const Color(0xff7e7e7e), width: 0.1),
+                                  color: ILLUSTRATION_GREY_HIGH_COLOR,
+                                  width: 0.1),
                               image: DecorationImage(
                                   image: NetworkImage(
                                       'https://voz.vn/data/avatars/o/1674/1674252.jpg?1594502766'),
@@ -48,7 +49,6 @@ class _DetailsState extends State<ProfileScreen> {
                               child: Text(
                                 widget.dto.name,
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
                                     fontSize: 18,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700),
@@ -58,7 +58,6 @@ class _DetailsState extends State<ProfileScreen> {
                               child: Text(
                                 "( " + widget.dto.userName + " )",
                                 style: TextStyle(
-                                    fontFamily: 'Montserrat',
                                     fontSize: 14,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700),
@@ -127,7 +126,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             "Email",
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 14,
                                 color: DEFAULT_COLOR,
                                 fontWeight: FontWeight.w700),
@@ -137,7 +135,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             widget.dto.email,
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 16,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w700),
@@ -147,7 +144,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             "Address",
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 14,
                                 color: DEFAULT_COLOR,
                                 fontWeight: FontWeight.w700),
@@ -157,7 +153,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             widget.dto.address,
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 16,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w700),
@@ -167,7 +162,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             "Phone",
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 14,
                                 color: DEFAULT_COLOR,
                                 fontWeight: FontWeight.w700),
@@ -177,7 +171,6 @@ class _DetailsState extends State<ProfileScreen> {
                           child: Text(
                             widget.dto.phoneNumber,
                             style: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontSize: 16,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w700),

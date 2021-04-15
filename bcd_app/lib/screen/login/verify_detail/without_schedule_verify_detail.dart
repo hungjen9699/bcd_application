@@ -1,15 +1,11 @@
-import 'dart:async';
-
 import 'package:bcd_app/screen/login/verify_detail/scheduled_verify_detail.dart';
 import 'package:flutter/material.dart';
 
 class WithoutScheduleVerifyDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      //    resizeToAvoidBottomPadding: false,
       body: Column(children: <Widget>[
         Card(
           child: Padding(

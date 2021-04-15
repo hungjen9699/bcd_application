@@ -1,9 +1,8 @@
 import 'package:bcd_app/screen/drawer/main_drawer.dart';
-import 'package:bcd_app/screen/tab/crack/component/crack_detail_title.dart';
+import 'package:bcd_app/utils/constant.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class HistoryDetails extends StatefulWidget {
   final String title;
@@ -16,10 +15,6 @@ class HistoryDetails extends StatefulWidget {
 }
 
 class HistoryDetailsState extends State<HistoryDetails> {
-  double _animatedHeight = 0.0;
-  double _animatedBigHeight = 500;
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +33,8 @@ class HistoryDetailsState extends State<HistoryDetails> {
               children: <Widget>[
                 new GestureDetector(
                   child: AnimatedContainer(
-                      margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       width: MediaQuery.of(context).size.width,
                       height: 800,
                       duration: const Duration(milliseconds: 120),
@@ -61,7 +57,7 @@ class HistoryDetailsState extends State<HistoryDetails> {
                       ),
                       child: Column(
                         children: [
-                          CrackDetailTitle(widget.title),
+                          // CrackDetailTitle(widget.title),
                           Container(
                             width: double.infinity,
                             margin: EdgeInsets.symmetric(
@@ -75,9 +71,9 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                     width: 300,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(bottom: 10),
@@ -106,7 +102,7 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                               ),
                                               Text(" 3m from checkpoint 1",
                                                   style:
-                                                  TextStyle(fontSize: 16))
+                                                      TextStyle(fontSize: 16))
                                             ],
                                           ),
                                         ),
@@ -121,7 +117,7 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                               ),
                                               Text(" 12/12/2020 11:00",
                                                   style:
-                                                  TextStyle(fontSize: 16))
+                                                      TextStyle(fontSize: 16))
                                             ],
                                           ),
                                         ),
@@ -132,11 +128,19 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                               Icon(
                                                 Icons.report_problem,
                                                 size: 20,
-                                              color: widget.color,
+                                                color: widget.color,
                                               ),
-                                              Text(widget.color==Colors.redAccent?" High":widget.color==Colors.orangeAccent?" Medium":" Low",
+                                              Text(
+                                                  widget.color ==
+                                                          Colors.redAccent
+                                                      ? CrackSeverity.High
+                                                      : widget.color ==
+                                                              Colors
+                                                                  .orangeAccent
+                                                          ? CrackSeverity.Medium
+                                                          : CrackSeverity.Low,
                                                   style:
-                                                  TextStyle(fontSize: 16))
+                                                      TextStyle(fontSize: 16))
                                             ],
                                           ),
                                         ),
@@ -144,30 +148,28 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                           controller: TextEditingController(
                                               text: "12/01/2021"),
                                           style:
-                                          TextStyle(color: Colors.black54),
+                                              TextStyle(color: Colors.black54),
                                           keyboardType: TextInputType.text,
                                           textInputAction: TextInputAction.next,
                                           decoration: InputDecoration(
                                               labelText: 'Repair time',
                                               //prefixIcon: Icon(Icons.email),
                                               icon:
-                                              Icon(Icons.av_timer_rounded)),
+                                                  Icon(Icons.av_timer_rounded)),
                                         ),
-
                                         TextFormField(
                                           controller: TextEditingController(
                                               text: "...."),
                                           style:
-                                          TextStyle(color: Colors.black54),
+                                              TextStyle(color: Colors.black54),
                                           keyboardType: TextInputType.text,
                                           textInputAction: TextInputAction.next,
                                           decoration: InputDecoration(
-                                              labelText: 'Position Description',
+                                              labelText: 'Position Detail',
                                               //prefixIcon: Icon(Icons.email),
                                               icon:
-                                              Icon(Icons.av_timer_rounded)),
+                                                  Icon(Icons.av_timer_rounded)),
                                         ),
-
                                       ],
                                     )),
                                 Opacity(
@@ -177,9 +179,9 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                       height: 1,
                                       decoration: BoxDecoration(
                                           border: Border.all(
-                                            color: const Color(0xffb7b7b7),
-                                            width: 0.5,
-                                          ))),
+                                        color: ILLUSTRATION_GREY_HIGH_COLOR,
+                                        width: 0.5,
+                                      ))),
                                 ),
                                 new AnimatedContainer(
                                   margin: EdgeInsets.only(top: 20),
@@ -215,7 +217,7 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                                   color: Colors.black54),
                                               keyboardType: TextInputType.text,
                                               textInputAction:
-                                              TextInputAction.next,
+                                                  TextInputAction.next,
                                               decoration: InputDecoration(
                                                   labelText: 'Repairer',
                                                   hintText: "FPT Repair",
@@ -230,7 +232,7 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                                   color: Colors.black54),
                                               keyboardType: TextInputType.text,
                                               textInputAction:
-                                              TextInputAction.next,
+                                                  TextInputAction.next,
                                               decoration: InputDecoration(
                                                   labelText: 'Repair time',
                                                   //prefixIcon: Icon(Icons.email),
@@ -240,15 +242,15 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                             TextFormField(
                                               controller: TextEditingController(
                                                   text:
-                                                  "Repair by FPT repairer..."),
+                                                      "Repair by FPT repairer..."),
                                               style: TextStyle(
                                                   color: Colors.black54),
                                               keyboardType: TextInputType.text,
                                               textInputAction:
-                                              TextInputAction.next,
+                                                  TextInputAction.next,
                                               decoration: InputDecoration(
                                                   labelText:
-                                                  'Repair description',
+                                                      'Repair description',
                                                   //prefixIcon: Icon(Icons.email),
                                                   icon: Icon(
                                                       Icons.av_timer_rounded)),
@@ -256,61 +258,74 @@ class HistoryDetailsState extends State<HistoryDetails> {
                                             Opacity(
                                               opacity: 0.501960813999176,
                                               child: Container(
-                                                margin: EdgeInsets.only(top: 20),
-                                                  width: MediaQuery.of(context).size.width,
+                                                  margin:
+                                                      EdgeInsets.only(top: 20),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
                                                   height: 1,
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                        color: const Color(0xffb7b7b7),
-                                                        width: 0.5,
-                                                      ))),
+                                                    color:
+                                                        ILLUSTRATION_GREY_HIGH_COLOR,
+                                                    width: 0.5,
+                                                  ))),
                                             ),
                                             TextFormField(
                                               controller: TextEditingController(
-                                                  text:
-                                                  "7.8/10"),
+                                                  text: "7.8/10"),
                                               style: TextStyle(
                                                   color: Colors.black54),
                                               keyboardType: TextInputType.text,
                                               textInputAction:
-                                              TextInputAction.next,
+                                                  TextInputAction.next,
                                               decoration: InputDecoration(
                                                   labelText:
-                                                  'Evaluation result:',
+                                                      'Evaluation result:',
                                                   //prefixIcon: Icon(Icons.email),
-                                                  icon: Icon(
-                                                      Icons.rate_review_outlined)),
+                                                  icon: Icon(Icons
+                                                      .rate_review_outlined)),
                                             ),
                                             TextFormField(
                                               controller: TextEditingController(
-                                                  text:
-                                                  "..."),
+                                                  text: "..."),
                                               style: TextStyle(
                                                   color: Colors.black54),
                                               keyboardType: TextInputType.text,
                                               textInputAction:
-                                              TextInputAction.next,
+                                                  TextInputAction.next,
                                               decoration: InputDecoration(
                                                   labelText:
-                                                  'Evaluation detail:',
+                                                      'Evaluation detail:',
                                                   //prefixIcon: Icon(Icons.email),
-                                                  icon: Icon(
-                                                      Icons.description)),
+                                                  icon:
+                                                      Icon(Icons.description)),
                                             ),
                                             Container(
-                                              margin: EdgeInsets.symmetric(vertical: 20),
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 20),
                                               width: double.infinity,
                                               height: 10,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
                                                 color: Colors.yellow,
                                               ),
-                                              child: Row(children: [
-                                                Container(width: 200,height: 10,  decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                                                  color: Colors.green,
-                                                ),),
-                                              ],),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 200,
+                                                    height: 10,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      color: Colors.green,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             )
                                           ],
                                         )),

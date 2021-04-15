@@ -1,172 +1,232 @@
-import 'package:bcd_app/objects/crackDTO.dart';
 import 'package:bcd_app/objects/userDTO.dart';
-import 'package:bcd_app/screen/dialog/confirm_dialog.dart';
 import 'package:bcd_app/screen/tab/account/account_screen.dart';
 import 'package:bcd_app/screen/tab/crack/crack_screen.dart';
-import 'package:bcd_app/screen/tab/home/home_screen.dart';
 import 'package:bcd_app/screen/tab/notification/notification_screen.dart';
-import 'package:bcd_app/screen/tab/schedule/schedule__screen.dart';
+import 'package:bcd_app/screen/tab/schedule/manage_schedule_screen.dart';
 import 'package:bcd_app/utils/flutter_constant.dart';
-import 'package:bcd_app/repositories/crack_repository.dart';
+import 'package:bcd_app/utils/logout_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 
 class MainDrawer extends StatelessWidget {
   final UserDTO dto;
-  const MainDrawer({Key key, this.dto}) : super(key: key);
+  final int selectedTab;
+  const MainDrawer({Key key, this.dto, this.selectedTab}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Stack(
         children: [
           Container(
-            color: Colors.white,
+            decoration: new BoxDecoration(
+              color: Colors.white,
+            ),
             child: Column(
               children: [
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(20),
-                  color: DEFAULT_COLOR,
-                  height: 250,
+                  padding: EdgeInsets.all(10),
+                  height: 200,
                   child: Center(
-                    child: Column(
+                    child: Row(
                       children: [
                         Container(
-                          width: 100,
-                          height: 100,
+                          width: 85,
+                          height: 85,
                           margin: EdgeInsets.only(top: 30),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://voz.vn/data/avatars/o/1674/1674252.jpg?1594502766"),
-                                fit: BoxFit.fill,
-                              )),
+                            image: AssetImage("assets/bcd-logo.png"),
+                            fit: BoxFit.contain,
+                          )),
                         ),
                         Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(
-                              dto.name,
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white),
+                            margin: EdgeInsets.only(left: 5, top: 15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  dto.userName,
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: ILLUSTRATION_BLUE_COLOR_DRAWER),
+                                ),
+                                Container(
+                                  width: 190,
+                                  child: Text(
+                                    dto.email ?? "N/A",
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.black87),
+                                  ),
+                                ),
+                              ],
                             )),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(
-                              dto.email,
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white),
-                            ))
                       ],
                     ),
                   ),
                 ),
+                Opacity(
+                  opacity: 0.501960813999176,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      height: 1.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Colors.grey[500],
+                            width: 0.8,
+                          ))),
+                ),
+                SizedBox(height: 20),
                 Container(
-                  color: Colors.white,
                   width: double.infinity,
                   child: Column(
                     children: [
-                      ListTile(
-                        leading: Icon(LineIcons.home, color: Colors.black54),
-                        title: Text(
-                          'Home',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black54),
+                      // ListTile(
+                      //   leading: Icon(Icons.home,
+                      //       color: selectedTab == 1
+                      //           ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                      //           : Colors.black87),
+                      //   title: Text(
+                      //     'Home',
+                      //     style: TextStyle(
+                      //         fontSize: 16,
+                      //         color: selectedTab == 1
+                      //             ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                      //             : Colors.black87),
+                      //   ),
+                      //   onTap: () {
+                      //     Navigator.pushAndRemoveUntil(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => HomeScreen(dto: dto)),
+                      //         (Route<dynamic> route) => route.isFirst);
+                      //   },
+                      // ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: selectedTab == 2
+                                ? ILLUSTRATION_BLUE_COLOR_LOGIN
+                                : Colors.white),
+                        child: ListTile(
+                          leading: Icon(Icons.notifications,
+                              color: selectedTab == 2
+                                  ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                  : Colors.grey[400]),
+                          title: Text(
+                            'Notification',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: selectedTab == 2
+                                    ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                    : Colors.black87),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NotificationScreen(dto: dto)),
+                                (Route<dynamic> route) => route.isFirst);
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen(dto: dto)),
-                          );
-                        },
                       ),
-                      ListTile(
-                        leading:
-                            Icon(LineIcons.mail_forward, color: Colors.black54),
-                        title: Text(
-                          'Notification',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black54),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            color: selectedTab == 3
+                                ? ILLUSTRATION_BLUE_COLOR_LOGIN
+                                : Colors.white),
+                        child: ListTile(
+                          leading: Icon(Icons.report_problem_rounded,
+                              color: selectedTab == 3
+                                  ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                  : Colors.grey[400]),
+                          title: Text(
+                            'Crack',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: selectedTab == 3
+                                    ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                    : Colors.black87),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CrackScreen(dto: dto, page: 0)),
+                                (Route<dynamic> route) => route.isFirst);
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    NotificationScreen(dto: dto)),
-                          );
-                        },
                       ),
-                      ListTile(
-                        leading:
-                            Icon(LineIcons.building_o, color: Colors.black54),
-                        title: Text(
-                          'Crack',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black54),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: selectedTab == 4
+                                ? ILLUSTRATION_BLUE_COLOR_LOGIN
+                                : Colors.white),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.receipt_long,
+                            color: selectedTab == 4
+                                ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                : Colors.grey[400],
+                          ),
+                          title: Text(
+                            'Repair Record',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: selectedTab == 4
+                                    ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                    : Colors.black87),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ScheduleScreen(
+                                          dto: dto,
+                                          selectedTab: 0,
+                                        )),
+                                (Route<dynamic> route) => route.isFirst);
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CrackScreen(dto: dto)),
-                          );
-                        },
                       ),
-                      ListTile(
-                        leading: Icon(
-                          LineIcons.calendar,
-                          color: Colors.black54,
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: selectedTab == 5
+                                ? ILLUSTRATION_BLUE_COLOR_LOGIN
+                                : Colors.white),
+                        child: ListTile(
+                          leading: Icon(Icons.account_box_rounded,
+                              color: selectedTab == 5
+                                  ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                  : Colors.grey[400]),
+                          title: Text(
+                            'Account',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: selectedTab == 5
+                                    ? ILLUSTRATION_BLUE_COLOR_DRAWER
+                                    : Colors.black87),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AccountScreen(dto: dto)),
+                                (Route<dynamic> route) => route.isFirst);
+                          },
                         ),
-                        title: Text(
-                          'Schedule',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black54),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScheduleScreen(dto: dto)),
-                          );
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(LineIcons.user, color: Colors.black54),
-                        title: Text(
-                          'Account',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black54),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AccountScreen(dto: dto)),
-                          );
-                        },
                       ),
                     ],
                   ),
@@ -178,6 +238,7 @@ class MainDrawer extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
                 width: double.infinity,
                 height: 60,
                 color: Colors.white,
@@ -187,28 +248,24 @@ class MainDrawer extends StatelessWidget {
                       opacity: 0.501960813999176,
                       child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 1,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          height: 1.2,
                           decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
                               border: Border.all(
-                            color: const Color(0xffb7b7b7),
-                            width: 0.5,
-                          ))),
+                                color: Colors.grey[500],
+                                width: 0.8,
+                              ))),
                     ),
                     ListTile(
-                      leading: Icon(LineIcons.sign_out, color: Colors.black54),
+                      leading: Icon(Icons.logout, color: Colors.grey[400]),
                       title: Text(
                         'Logout',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black54),
+                        style: TextStyle(fontSize: 16, color: Colors.black87),
                       ),
                       onTap: () {
                         showDialog(
-                            context: context,
-                            child: ConfirmDialog("Logout",
-                                "Do you want to log out?", Colors.red));
+                            context: context, builder: (_) => LogOutDialog());
                       },
                     ),
                   ],
